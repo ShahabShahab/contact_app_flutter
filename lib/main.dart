@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:parsianotp/contact.dart';
+import 'package:parsianotp/new_contact_page.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 Future<void> main() async {
@@ -9,6 +11,8 @@ Future<void> main() async {
   Directory appDocumentDir =
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
+  Hive.registerAdapter(ContactAdapter(), override: true);
+  await Hive.openBox('contacts');
   runApp(const MyApp());
 }
 
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: NewContactPage(),
     );
   }
 }
