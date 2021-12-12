@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:logging/logging.dart';
 import 'package:parsianotp/api_service.dart';
 import 'package:parsianotp/contact.dart';
 import 'package:parsianotp/new_contact_page.dart';
@@ -16,7 +17,15 @@ Future<void> main() async {
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(ContactAdapter(), override: true);
   await Hive.openBox('contacts');
+  _setLogging();
   runApp(const MyApp());
+}
+
+void _setLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    debugPrint('${rec.level.name}: ${rec.message}');
+  });
 }
 
 class MyApp extends StatelessWidget {
