@@ -1,40 +1,27 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:logging/logging.dart';
-import 'package:parsianotp/api_service.dart';
-import 'package:parsianotp/contact.dart';
+import 'package:parsianotp/data_source/local/db_module.dart';
+import 'package:parsianotp/data_source/remote/rest_client.dart';
+import 'package:parsianotp/injection_container.dart';
 import 'package:parsianotp/new_contact_page.dart';
 import 'package:parsianotp/post_list_page.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
+
+import 'injection_container.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Directory appDocumentDir =
-      await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir.path);
-  Hive.registerAdapter(ContactAdapter(), override: true);
-  await Hive.openBox('contacts');
-  _setLogging();
+  await di.init();
+  await DBModule.initDb();
   runApp(const MyApp());
 }
 
-void _setLogging() {
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((rec) {
-    debugPrint('${rec.level.name}: ${rec.message}');
-  });
-}
-
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (context) => ApiService.create(),
+      create: (context) => sl<RestClient>(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -47,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +58,8 @@ class HomePage extends StatelessWidget {
             width: double.maxFinite,
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PostListPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PostListPage()));
                 },
                 child: const Text("Posts Page")),
           ),

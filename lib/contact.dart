@@ -1,8 +1,9 @@
 import 'package:hive/hive.dart';
+import 'package:parsianotp/constants/hive_constants.dart';
 
 part 'contact.g.dart';
 
-@HiveType(typeId: 20)
+@HiveType(typeId: CONTACTS_ADAPTER_ID)
 class Contact {
   @HiveField(0)
   final String name;

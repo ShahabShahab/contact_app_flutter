@@ -7,7 +7,7 @@ class NewContactPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
-  NewContactPage({Key? key}) : super(key: key);
+  NewContactPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

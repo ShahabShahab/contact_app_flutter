@@ -1,13 +1,10 @@
-import 'dart:convert';
-
-import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
-import 'package:parsianotp/api_service.dart';
-import 'package:parsianotp/detail_post_page.dart';
+import 'package:parsianotp/data_source/remote/rest_client.dart';
+import 'package:parsianotp/models/posts_response.dart';
 import 'package:provider/provider.dart';
 
 class PostListPage extends StatelessWidget {
-  const PostListPage({Key? key}) : super(key: key);
+  const PostListPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +14,18 @@ class PostListPage extends StatelessWidget {
     );
   }
 
-  FutureBuilder<Response> _buildBody(BuildContext mainContext) {
+  FutureBuilder<List<PostsResponse>> _buildBody(BuildContext mainContext) {
     // FutureBuilder is perfect for easily building UI when awaiting a Future
     // Response is the type currently returned by all the methods of PostApiService
-    return FutureBuilder<Response>(
+    return FutureBuilder<List<PostsResponse>>(
       // In real apps, use some sort of state management (BLoC is cool)
       // to prevent duplicate requests when the UI rebuilds
-      future: Provider.of<ApiService>(mainContext).getPosts(),
+      future: Provider.of<RestClient>(mainContext).getPosts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           // Snapshot's data is the Response
           // You can see there's no type safety here (only List<dynamic>)
-          final List posts = json.decode(snapshot.data!.bodyString);
+          final List<PostsResponse> posts = snapshot.data;
           return _buildPosts(mainContext, posts);
         } else {
           // Show a loading indicator while waiting for the posts
@@ -40,7 +37,7 @@ class PostListPage extends StatelessWidget {
     );
   }
 
-  ListView _buildPosts(BuildContext mainContext, List posts) {
+  ListView _buildPosts(BuildContext mainContext, List<PostsResponse> posts) {
     return ListView.builder(
       itemCount: posts.length,
       padding: const EdgeInsets.all(8),
@@ -49,11 +46,11 @@ class PostListPage extends StatelessWidget {
           elevation: 4,
           child: ListTile(
             title: Text(
-              posts[index]['title'],
+              posts[index].title,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(posts[index]['body']),
-            onTap: () => _navigateToPost(mainContext, posts[index]['id']),
+            subtitle: Text(posts[index].body),
+            onTap: () => _navigateToPost(mainContext, posts[index].id),
           ),
         );
       },
@@ -61,10 +58,6 @@ class PostListPage extends StatelessWidget {
   }
 
   void _navigateToPost(BuildContext context, int id) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => DetailPostPage(postId: id),
-      ),
-    );
+    print('PostListPage._navigateToPost $id');
   }
 }

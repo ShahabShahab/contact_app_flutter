@@ -4,27 +4,29 @@ description: OTP Generator for Parsian Bank
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  hive: ^2.0.4
-  path_provider: ^2.0.8
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
+  path_provider: ^1.6.11
   cupertino_icons: ^1.0.2
-  dartz: ^0.10.1
-  chopper: ^4.0.4
-  provider: ^6.0.1
-  logging: ^1.0.2
-  connectivity: ^3.0.6
+  dio: ^3.0.9
+  provider: ^4.3.1
+  retrofit: ^1.3.4
+  json_annotation: 3.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
-  build_runner: ^2.1.5
-  hive_generator: ^1.1.1
-  chopper_generator: ^4.0.3
+  build_runner: 1.10.4
+  hive_generator: ^0.8.1
+  json_serializable: ^3.5.0
+  retrofit_generator: ^1.4.0+1
+  get_it: ^4.0.4
 
 flutter:
   uses-material-design: true

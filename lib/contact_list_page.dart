@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'contact.dart';
 
 class ContactsListPage extends StatelessWidget {
-  const ContactsListPage({Key? key}) : super(key: key);
+  const ContactsListPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
