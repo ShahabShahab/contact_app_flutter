@@ -16,7 +16,8 @@ abstract class ApiService extends ChopperService {
         converter: const JsonConverter(),
         interceptors: [
           const HeadersInterceptor({'Cache-Control': 'no-cache'}),
-           HttpLoggingInterceptor(),
+          HttpLoggingInterceptor(),
+          CurlInterceptor(),
           (Request request) async {
             chopperLogger.info('Performed a request');
             return request;
