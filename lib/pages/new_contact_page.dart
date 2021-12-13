@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:parsianotp/contact.dart';
-import 'package:parsianotp/contact_list_page.dart';
+import 'package:parsianotp/constants/hive_constants.dart';
+import 'package:parsianotp/entities/contact.dart';
+import 'package:parsianotp/pages/contact_list_page.dart';
 
 class NewContactPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
@@ -24,7 +25,7 @@ class NewContactPage extends StatelessWidget {
   }
 
   Future<void> _insertNewContact() async {
-    final contactsBox = Hive.box('contacts');
+    final contactsBox = Hive.box<Contact>(CONTACTS_BOX_NAME);
     Contact contact =
         Contact(_nameController.text, int.parse(_ageController.text));
     await contactsBox.add(contact);

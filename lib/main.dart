@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:parsianotp/data_source/local/db_module.dart';
 import 'package:parsianotp/data_source/remote/rest_client.dart';
 import 'package:parsianotp/injection_container.dart';
-import 'package:parsianotp/new_contact_page.dart';
-import 'package:parsianotp/post_list_page.dart';
+import 'package:parsianotp/pages/new_contact_page.dart';
+import 'package:parsianotp/pages/post_list_page.dart';
 import 'package:provider/provider.dart';
 
 import 'injection_container.dart' as di;

@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:parsianotp/constants/hive_constants.dart';
-import 'package:parsianotp/contact.dart';
+import 'package:parsianotp/entities/contact.dart';
 
 class DBModule {
   DBModule() {
@@ -19,7 +19,7 @@ class DBModule {
     //add boxes here
     try {
       if (!Hive.isBoxOpen(CONTACTS_BOX_NAME))
-        await Hive.openBox<String>(CONTACTS_BOX_NAME);
+        await Hive.openBox<Contact>(CONTACTS_BOX_NAME);
     } catch (e, s) {
       Hive.deleteBoxFromDisk(CONTACTS_BOX_NAME);
     }
