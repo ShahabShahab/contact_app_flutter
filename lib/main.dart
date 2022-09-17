@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:parsianotp/data_source/local/db_module.dart';
 import 'package:parsianotp/data_source/remote/rest_client.dart';
 import 'package:parsianotp/injection_container.dart';
+import 'package:parsianotp/pages/contact_list/contact_list_page.dart';
+import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
 import 'package:parsianotp/pages/new_contact_page.dart';
 import 'package:parsianotp/pages/post_list_page.dart';
+import 'package:parsianotp/widgets/contact_row.dart';
 import 'package:provider/provider.dart';
 
 import 'injection_container.dart' as di;
@@ -12,7 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await DBModule.initDb();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,15 +23,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (context) => sl<RestClient>(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => ContactListProvider(),
+        )
+      ],
       child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const HomePage(),
-      ),
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: SafeArea(
+            child: ContactListPage(),
+          ))
     );
   }
 }
@@ -43,6 +51,10 @@ class HomePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(
+            width: double.maxFinite,
+            child: ContactRow(),
+          ),
           SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
