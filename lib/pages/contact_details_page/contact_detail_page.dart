@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_detail_provider.dart';
+import 'package:parsianotp/ui_utils.dart';
 import 'package:parsianotp/widgets/custom_match_parent_button.dart';
 import 'package:parsianotp/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
@@ -32,21 +33,6 @@ class ContactDetailPage extends StatelessWidget {
           width: 200,
         )),
       );
-    } else if (provider.hasError) {
-      return Scaffold(
-          body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(provider.error),
-            ElevatedButton(
-                onPressed: () {
-                  _submitContact(context);
-                },
-                child: Text("Try Again"))
-          ],
-        ),
-      ));
     } else {
       return Scaffold(
           appBar: AppBar(),
@@ -119,6 +105,8 @@ class ContactDetailPage extends StatelessWidget {
         onSuccess: () {
           Navigator.pop(context);
         },
-        onError: () {});
+        onError: () {
+          showSnackBar(context, provider.error);
+        });
   }
 }
