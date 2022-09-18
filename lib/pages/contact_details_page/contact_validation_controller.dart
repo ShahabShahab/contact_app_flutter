@@ -9,6 +9,8 @@ class ContactValidationController {
       @required ContactValidateCallback contactValidateCallback}) {
     if (!isStringValid(text)) {
       contactValidateCallback("Field must be at least 3 characters");
+    } else {
+      contactValidateCallback(null);
     }
   }
 
@@ -19,6 +21,8 @@ class ContactValidationController {
       contactValidateCallback("Email must be filled.");
     } else if (!isEmailValid(email)) {
       contactValidateCallback("Email format is not correct");
+    } else {
+      contactValidateCallback(null);
     }
   }
 
@@ -29,6 +33,8 @@ class ContactValidationController {
       contactValidateCallback("PhoneNumber must be filled.");
     } else if (!isTelephoneNumberValid(phoneNumber)) {
       contactValidateCallback("PhoneNumber format is not correct");
+    } else {
+      contactValidateCallback(null);
     }
   }
 }
