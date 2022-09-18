@@ -16,63 +16,87 @@ class ContactDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ContactDetailProvider>(context);
-    return Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          children: [
-            CustomTextField(
-              label: "First Name",
-              error: provider.firstNameValidationError,
-              onChanged: (value) {
-                provider.checkFirstNameValidationError(value);
-              },
-              controller: firstNameController,
-            ),
-            CustomTextField(
-              label: "Last Name",
-              error: provider.lastNameValidationError,
-              onChanged: (value) {
-                provider.checkLastNameValidationError(value);
-              },
-              controller: lastNameController,
-            ),
-            CustomTextField(
-              label: "Phone Number",
-              error: provider.phoneNumberValidationError,
-              onChanged: (value) {
-                provider.checkPhoneNumberValidationError(value);
-              },
-              controller: phoneNumberController,
-            ),
-            CustomTextField(
-              label: "Email",
-              error: provider.emailValidationError,
-              onChanged: (value) {
-                provider.checkEmailValidationError(value);
-              },
-              controller: emailController,
-            ),
-            CustomTextField(
-              label: "Note",
-              error: provider.noteValidationError,
-              maxLines: 5,
-              onChanged: (value) {
-                provider.checkNoteValidationError(value);
-              },
-              controller: noteController,
-            ),
-          ],
+    if (provider.isLoading) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
         ),
-        bottomNavigationBar: CustomMatchParentButton(onPressed: () {
-          bool validationResult = provider.areContactDetailInputValid(
-              firstName: firstNameController.text,
-              lastName: lastNameController.text,
-              phoneNumber: phoneNumberController.text,
-              email: emailController.text,
-              note: noteController.text);
-          if (validationResult) {
-            debugPrint('ContactDetailPage.build');
-          }
-        }));
+      );
+    } else if (provider.hasError) {
+      return Scaffold(
+          body: Center(
+        child: Text(provider.error),
+      ));
+    } else {
+      return Scaffold(
+          appBar: AppBar(),
+          body: Column(
+            children: [
+              CustomTextField(
+                label: "First Name",
+                error: provider.firstNameValidationError,
+                onChanged: (value) {
+                  provider.checkFirstNameValidationError(value);
+                },
+                controller: firstNameController,
+              ),
+              CustomTextField(
+                label: "Last Name",
+                error: provider.lastNameValidationError,
+                onChanged: (value) {
+                  provider.checkLastNameValidationError(value);
+                },
+                controller: lastNameController,
+              ),
+              CustomTextField(
+                label: "Phone Number",
+                error: provider.phoneNumberValidationError,
+                onChanged: (value) {
+                  provider.checkPhoneNumberValidationError(value);
+                },
+                controller: phoneNumberController,
+              ),
+              CustomTextField(
+                label: "Email",
+                error: provider.emailValidationError,
+                onChanged: (value) {
+                  provider.checkEmailValidationError(value);
+                },
+                controller: emailController,
+              ),
+              CustomTextField(
+                label: "Note",
+                error: provider.noteValidationError,
+                maxLines: 5,
+                onChanged: (value) {
+                  provider.checkNoteValidationError(value);
+                },
+                controller: noteController,
+              ),
+            ],
+          ),
+          bottomNavigationBar: CustomMatchParentButton(onPressed: () {
+            bool validationResult = provider.areContactDetailInputValid(
+                firstName: firstNameController.text,
+                lastName: lastNameController.text,
+                phoneNumber: phoneNumberController.text,
+                email: emailController.text,
+                note: noteController.text);
+            if (validationResult) {
+              provider.submitNewContact(
+                  firstName: firstNameController.text,
+                  lastName: lastNameController.text,
+                  phoneNumber: phoneNumberController.text,
+                  email: emailController.text,
+                  note: noteController.text,
+                  onSuccess: () {
+                    Navigator.pop(context);
+                  },
+                  onError: () {
+
+                  });
+            }
+          }));
+    }
   }
 }

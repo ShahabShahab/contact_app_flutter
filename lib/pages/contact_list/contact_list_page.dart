@@ -25,7 +25,8 @@ class ContactListPage extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
                               create: (context) => ContactDetailProvider(),
-                            child: ContactDetailPage(),)));
+                              child: ContactDetailPage(),
+                            )));
               },
               child: Text("data"),
             ),

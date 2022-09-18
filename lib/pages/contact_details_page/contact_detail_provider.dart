@@ -102,4 +102,19 @@ class ContactDetailProvider extends BaseProvider {
       notifyListeners();
     }
   }
+
+  Future<void> submitNewContact(
+      {String firstName,
+      String lastName,
+      String phoneNumber,
+      String email,
+      String note,
+      Null Function() onSuccess,
+      Null Function() onError}) async {
+    setState(ViewState.LOADING);
+    await Future.delayed(Duration(seconds: 3));
+    error = "Bas happened";
+    setState(ViewState.ERROR);
+    onError();
+  }
 }
