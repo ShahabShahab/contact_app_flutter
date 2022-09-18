@@ -1,6 +1,5 @@
 import 'package:parsianotp/base_provider.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_validation_controller.dart';
-import 'package:parsianotp/utils.dart';
 
 class ContactDetailProvider extends BaseProvider {
   String firstNameValidationError = "";
@@ -10,7 +9,6 @@ class ContactDetailProvider extends BaseProvider {
   String noteValidationError = "";
   ContactValidationController _validationController =
       ContactValidationController();
-  bool _globalContactDetailValidationFlag = true;
 
   bool areContactDetailInputValid(
       {String firstName,
@@ -18,36 +16,37 @@ class ContactDetailProvider extends BaseProvider {
       String phoneNumber,
       String email,
       String note}) {
-    _validationController.validateText(
-        text: firstName,
-        contactValidateCallback: (error) {
-          firstNameValidationError = error;
-          _resetGlobalValidationFlag(error);
-        });
-    _validationController.validateText(
-        text: lastName,
-        contactValidateCallback: (error) {
-          lastNameValidationError = error;
-          _resetGlobalValidationFlag(error);
-        });
+    _validateFirstName(firstName);
+    _validateLastName(lastName);
+    _validateEmail(email);
+    _validatePhoneNumber(phoneNumber);
+    _validateNote(note);
+    notifyListeners();
+    return _checkValidationFlags();
+  }
+
+  void _validateNote(String note) {
     _validationController.validateText(
         text: note,
         contactValidateCallback: (error) {
           noteValidationError = error;
-          _resetGlobalValidationFlag(error);
         });
-    _validateEmail(email);
-    _validatePhoneNumber(phoneNumber);
-    notifyListeners();
-    return _globalContactDetailValidationFlag;
   }
 
-  _resetGlobalValidationFlag(String error) {
-    if (isStringValid(error)) {
-      _globalContactDetailValidationFlag = false;
-    } else {
-      _globalContactDetailValidationFlag = true;
-    }
+  void _validateLastName(String lastName) {
+    _validationController.validateText(
+        text: lastName,
+        contactValidateCallback: (error) {
+          lastNameValidationError = error;
+        });
+  }
+
+  void _validateFirstName(String firstName) {
+    _validationController.validateText(
+        text: firstName,
+        contactValidateCallback: (error) {
+          firstNameValidationError = error;
+        });
   }
 
   void _validateEmail(String email) {
@@ -55,7 +54,6 @@ class ContactDetailProvider extends BaseProvider {
         email: email,
         contactValidateCallback: (error) {
           emailValidationError = error;
-          _resetGlobalValidationFlag(error);
         });
   }
 
@@ -64,7 +62,6 @@ class ContactDetailProvider extends BaseProvider {
         phoneNumber: phoneNumber,
         contactValidateCallback: (error) {
           phoneNumberValidationError = error;
-          _resetGlobalValidationFlag(error);
         });
   }
 
@@ -113,8 +110,16 @@ class ContactDetailProvider extends BaseProvider {
       Null Function() onError}) async {
     setState(ViewState.LOADING);
     await Future.delayed(Duration(seconds: 3));
-    error = "Bas happened";
+    error = "Bad happened";
     setState(ViewState.ERROR);
     onError();
+  }
+
+  bool _checkValidationFlags() {
+    return firstNameValidationError == null &&
+        lastNameValidationError == null &&
+        noteValidationError == null &&
+        phoneNumberValidationError == null &&
+        emailValidationError == null;
   }
 }

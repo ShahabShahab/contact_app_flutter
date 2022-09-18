@@ -37,4 +37,6 @@ class ContactValidationController {
       contactValidateCallback(null);
     }
   }
+
+
 }

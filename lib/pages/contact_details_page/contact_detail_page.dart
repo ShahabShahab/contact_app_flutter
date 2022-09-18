@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_detail_provider.dart';
 import 'package:parsianotp/widgets/custom_match_parent_button.dart';
 import 'package:parsianotp/widgets/custom_text_field.dart';
@@ -7,25 +8,44 @@ import 'package:provider/provider.dart';
 class ContactDetailPage extends StatelessWidget {
   ContactDetailPage({Key key}) : super(key: key);
 
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController noteController = TextEditingController();
+  final TextEditingController firstNameController =
+      TextEditingController(text: "shahab");
+  final TextEditingController lastNameController =
+      TextEditingController(text: "sdfhdfs");
+  final TextEditingController phoneNumberController =
+      TextEditingController(text: "09383181063");
+  final TextEditingController emailController =
+      TextEditingController(text: "s@s.c");
+  final TextEditingController noteController =
+      TextEditingController(text: "sdfjfdks");
+  ContactDetailProvider provider;
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ContactDetailProvider>(context);
+    provider = Provider.of<ContactDetailProvider>(context);
     if (provider.isLoading) {
       return Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
-        ),
+            child: Container(
+          child: Lottie.asset('assets/loading.json'),
+          height: 200,
+          width: 200,
+        )),
       );
     } else if (provider.hasError) {
       return Scaffold(
           body: Center(
-        child: Text(provider.error),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(provider.error),
+            ElevatedButton(
+                onPressed: () {
+                  _submitContact(context);
+                },
+                child: Text("Try Again"))
+          ],
+        ),
       ));
     } else {
       return Scaffold(
@@ -83,20 +103,22 @@ class ContactDetailPage extends StatelessWidget {
                 email: emailController.text,
                 note: noteController.text);
             if (validationResult) {
-              provider.submitNewContact(
-                  firstName: firstNameController.text,
-                  lastName: lastNameController.text,
-                  phoneNumber: phoneNumberController.text,
-                  email: emailController.text,
-                  note: noteController.text,
-                  onSuccess: () {
-                    Navigator.pop(context);
-                  },
-                  onError: () {
-
-                  });
+              _submitContact(context);
             }
           }));
     }
+  }
+
+  void _submitContact(BuildContext context) {
+    provider.submitNewContact(
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        phoneNumber: phoneNumberController.text,
+        email: emailController.text,
+        note: noteController.text,
+        onSuccess: () {
+          Navigator.pop(context);
+        },
+        onError: () {});
   }
 }
