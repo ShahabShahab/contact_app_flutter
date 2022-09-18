@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_detail_page.dart';
+import 'package:parsianotp/pages/contact_details_page/contact_detail_provider.dart';
 import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,9 @@ class ContactListPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ContactDetailPage()));
+                        builder: (context) => ChangeNotifierProvider(
+                              create: (context) => ContactDetailProvider(),
+                            child: ContactDetailPage(),)));
               },
               child: Text("data"),
             ),
