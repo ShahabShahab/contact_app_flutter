@@ -35,7 +35,15 @@ class ContactDetailPage extends StatelessWidget {
       );
     } else {
       return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(actions: [
+              GestureDetector(
+                child: Container(
+                  width: 50,
+                  child: Icon(Icons.delete),
+                ),
+                onTap: () => _onDeleteContact(context),
+              )
+          ]),
           body: Column(
             children: [
               CustomTextField(
@@ -108,5 +116,15 @@ class ContactDetailPage extends StatelessWidget {
         onError: () {
           showSnackBar(context, provider.error);
         });
+  }
+
+  void _onDeleteContact(BuildContext context) {
+    provider.deleteContact(onSuccess: (){
+      showSnackBar(context, "Successfully Deleted");
+      Navigator.pop(context);
+      Navigator.pop(context);
+    }, onError: (){
+      showSnackBar(context, provider.error);
+    });
   }
 }

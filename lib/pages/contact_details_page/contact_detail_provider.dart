@@ -122,4 +122,14 @@ class ContactDetailProvider extends BaseProvider {
         phoneNumberValidationError == null &&
         emailValidationError == null;
   }
+
+  Future<void> deleteContact(
+      {Null Function() onSuccess, Null Function() onError}) async {
+    setState(ViewState.LOADING);
+    await Future.delayed(Duration(seconds: 3));
+    // error = "Bad happened";
+    setState(ViewState.IDLE);
+    error = "Could not delete contact";
+    onSuccess();
+  }
 }
