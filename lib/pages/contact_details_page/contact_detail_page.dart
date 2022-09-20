@@ -7,12 +7,14 @@ import 'package:parsianotp/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class ContactDetailPage extends StatelessWidget {
-  ContactDetailPage({Key key, this.contact}) : super(key: key){
-    firstNameController.text = contact.firstName;
-    lastNameController.text = contact.lastName;
-    phoneNumberController.text = contact.phone;
-    emailController.text = contact.email;
-    noteController.text = contact.notes;
+  ContactDetailPage({Key key, this.contact}) : super(key: key) {
+    if (contact != null) {
+      firstNameController.text = contact.firstName;
+      lastNameController.text = contact.lastName;
+      phoneNumberController.text = contact.phone;
+      emailController.text = contact.email;
+      noteController.text = contact.notes;
+    }
   }
 
   final TextEditingController firstNameController = TextEditingController();
@@ -85,7 +87,7 @@ class ContactDetailPage extends StatelessWidget {
                     email: emailController.text,
                     note: noteController.text);
                 if (validationResult) {
-                  _submitContact(context);
+                  _operateOnContact(context);
                 }
               },
               title: _getTitle()));
@@ -93,22 +95,26 @@ class ContactDetailPage extends StatelessWidget {
   }
 
   Widget _buildDeleteIcon(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        width: 50,
-        child: Icon(Icons.delete),
+    return Visibility(
+      visible: this.contact != null,
+      child: GestureDetector(
+        child: Container(
+          width: 50,
+          child: Icon(Icons.delete),
+        ),
+        onTap: () => _onDeleteContact(context),
       ),
-      onTap: () => _onDeleteContact(context),
     );
   }
 
-  void _submitContact(BuildContext context) {
-    provider.submitNewContact(
+  void _operateOnContact(BuildContext context) {
+    provider.operateOnContact(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         phoneNumber: phoneNumberController.text,
         email: emailController.text,
         note: noteController.text,
+        edit: this.contact != null,
         onSuccess: () {
           Navigator.pop(context);
         },
@@ -118,9 +124,7 @@ class ContactDetailPage extends StatelessWidget {
   }
 
   void _onDeleteContact(BuildContext context) {
-    provider.deleteContact(onSuccess: () {
-      showSnackBar(context, "Successfully Deleted");
-      Navigator.pop(context);
+    provider.deleteContact(contact.id, onSuccess: () {
       Navigator.pop(context);
     }, onError: () {
       showSnackBar(context, provider.error);

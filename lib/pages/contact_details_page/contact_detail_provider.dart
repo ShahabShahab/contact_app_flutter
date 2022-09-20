@@ -1,6 +1,8 @@
 import 'package:parsianotp/base_provider.dart';
+import 'package:parsianotp/injection_container.dart';
 import 'package:parsianotp/models/contact.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_validation_controller.dart';
+import 'package:parsianotp/repos/contacts_repository.dart';
 
 class ContactDetailProvider extends BaseProvider {
   String firstNameValidationError = "";
@@ -11,6 +13,7 @@ class ContactDetailProvider extends BaseProvider {
   ContactValidationController _validationController =
       ContactValidationController();
   Contact contact;
+  ContactsRepository repository = sl<ContactsRepository>();
 
   bool areContactDetailInputValid(
       {String firstName,
@@ -102,19 +105,32 @@ class ContactDetailProvider extends BaseProvider {
     }
   }
 
-  Future<void> submitNewContact(
+  Future<void> operateOnContact(
       {String firstName,
       String lastName,
       String phoneNumber,
       String email,
       String note,
       Null Function() onSuccess,
-      Null Function() onError}) async {
+      Null Function() onError,
+      bool edit}) async {
     setState(ViewState.LOADING);
-    await Future.delayed(Duration(seconds: 3));
-    error = "Bad happened";
-    setState(ViewState.ERROR);
-    onError();
+    var response;
+    response = await repository.operateOnContact(
+        Contact(
+            firstName: firstName,
+            lastName: lastName,
+            phone: phoneNumber,
+            email: email,
+            notes: note),
+        edit: edit);
+    if (response.ok) {
+      onSuccess();
+      setState(ViewState.IDLE);
+    } else {
+      error = "Something went wrong!";
+      setState(ViewState.ERROR);
+    }
   }
 
   bool _checkValidationFlags() =>
@@ -124,13 +140,23 @@ class ContactDetailProvider extends BaseProvider {
       phoneNumberValidationError == null &&
       emailValidationError == null;
 
-  Future<void> deleteContact(
+  Future<void> deleteContact(String id,
       {Null Function() onSuccess, Null Function() onError}) async {
     setState(ViewState.LOADING);
-    await Future.delayed(Duration(seconds: 3));
-    // error = "Bad happened";
-    setState(ViewState.IDLE);
-    error = "Could not delete contact";
-    onSuccess();
+    try {
+      var response = await repository.deleteContact(contactId: id);
+      if (response.ok) {
+        onSuccess();
+        setState(ViewState.IDLE);
+      } else {
+        error = response.error.message;
+        setState(ViewState.ERROR);
+        onError();
+      }
+    } catch (e) {
+      error = "somethig went wrong";
+      setState(ViewState.ERROR);
+      onError();
+    }
   }
 }

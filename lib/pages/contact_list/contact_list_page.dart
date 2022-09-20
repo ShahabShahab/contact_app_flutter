@@ -59,11 +59,7 @@ class ContactListPage extends StatelessWidget {
                   onTap: () {
                     _openContactDetailPage(context, contact: contacts[index]);
                   },
-                  child: ContactRow(
-                    name: contacts[index].firstName,
-                    phoneNumber: contacts[index].phone,
-                    picture: contacts[index].picture[0],
-                  ),
+                  child: _buildContactRow(contacts, index),
                 ),
                 buildMargin(height: 10)
               ],
@@ -72,6 +68,22 @@ class ContactListPage extends StatelessWidget {
           itemCount: contacts.length,
         ),
       );
+  }
+
+  ContactRow _buildContactRow(List<Contact> contacts, int index) {
+    try{
+      return ContactRow(
+        name: contacts[index].firstName,
+        phoneNumber: contacts[index].phone,
+        picture: contacts[index].picture[0],
+      );
+    } catch(e){
+      return ContactRow(
+        name: contacts[index].firstName,
+        phoneNumber: contacts[index].phone,
+        picture: "Picture",
+      );
+    }
   }
 
   bool _contactsListIsEmpty(List<Contact> contacts) => contacts.length == 0;

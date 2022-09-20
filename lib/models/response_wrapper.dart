@@ -1,69 +1,69 @@
 import 'package:dio/dio.dart';
 import 'package:parsianotp/models/response_error_wrapper.dart';
 
-class DomesticResponseWrapper<T> {
+class ResponseWrapper<T> {
   final bool ok;
   final ResponseErrorWrapper error;
   final T data;
 
-  DomesticResponseWrapper({this.ok = true, this.error, this.data});
+  ResponseWrapper({this.ok = true, this.error, this.data});
 
-  factory DomesticResponseWrapper.fromDioError({DioError error}) {
+  factory ResponseWrapper.fromDioError({DioError error}) {
     switch (error.type) {
       case DioErrorType.RESPONSE:
-        return DomesticResponseWrapper.fromDioErrorResponse(error);
+        return ResponseWrapper.fromDioErrorResponse(error);
       case DioErrorType.CONNECT_TIMEOUT:
-        return DomesticResponseWrapper.fromDioErrorConnectionTimeout();
+        return ResponseWrapper.fromDioErrorConnectionTimeout();
       case DioErrorType.DEFAULT:
-        return DomesticResponseWrapper.fromError(error, null);
+        return ResponseWrapper.fromError(error, null);
       default:
-        return DomesticResponseWrapper.fromDioErrorResponse(error);
+        return ResponseWrapper.fromDioErrorResponse(error);
     }
   }
 
-  factory DomesticResponseWrapper.fromError(Object error, stack) {
-    return DomesticResponseWrapper<T>(
+  factory ResponseWrapper.fromError(Object error, stack) {
+    return ResponseWrapper<T>(
         ok: false,
         error:
             ResponseErrorWrapper(message: "Somethiog Went Wrong!", code: 1000));
   }
 
-  factory DomesticResponseWrapper.fromCustomError(String error) {
-    return DomesticResponseWrapper<T>(
+  factory ResponseWrapper.fromCustomError(String error) {
+    return ResponseWrapper<T>(
         ok: false, error: ResponseErrorWrapper(message: error, code: 1000));
   }
 
-  factory DomesticResponseWrapper.fromJson(
+  factory ResponseWrapper.fromJson(
       Map<String, dynamic> json, Function(Map) fromjson) {
-    return DomesticResponseWrapper<T>(ok: json["ok"], data: fromjson(json));
+    return ResponseWrapper<T>(ok: json["ok"], data: fromjson(json));
   }
 
-  factory DomesticResponseWrapper.builder(bool flag, String error, T data) {
-    return DomesticResponseWrapper<T>(ok: flag, data: data);
+  factory ResponseWrapper.builder(bool flag, String error, T data) {
+    return ResponseWrapper<T>(ok: flag, data: data);
   }
 
-  factory DomesticResponseWrapper.fromDioErrorResponse(DioError error) {
-    DomesticResponseWrapper<T> baseModel;
+  factory ResponseWrapper.fromDioErrorResponse(DioError error) {
+    ResponseWrapper<T> baseModel;
     try {
       var emptyDescError = ResponseErrorWrapper.fromJson(error.response.data);
       if (emptyDescError.message == null) {
-        baseModel = DomesticResponseWrapper<T>(
+        baseModel = ResponseWrapper<T>(
             ok: false, error: ResponseErrorWrapper(message: "Nothing to say!"));
       } else {
-        baseModel = DomesticResponseWrapper<T>(
+        baseModel = ResponseWrapper<T>(
             ok: false,
             error: ResponseErrorWrapper.fromJson(error.response.data));
       }
     } catch (e) {
-      baseModel = DomesticResponseWrapper<T>(
+      baseModel = ResponseWrapper<T>(
           ok: false,
           error: ResponseErrorWrapper(message: "Something went wrong!"));
     }
     return baseModel;
   }
 
-  factory DomesticResponseWrapper.fromDioErrorConnectionTimeout() {
-    return DomesticResponseWrapper(
+  factory ResponseWrapper.fromDioErrorConnectionTimeout() {
+    return ResponseWrapper(
         ok: false, error: ResponseErrorWrapper(message: "Connection Timeout"));
   }
 }
