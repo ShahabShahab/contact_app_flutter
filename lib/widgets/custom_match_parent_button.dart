@@ -13,6 +13,7 @@ class CustomMatchParentButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
+      height: 60,
       child: ElevatedButton(
         onPressed: this.onPressed,
         child: Text(this.title),

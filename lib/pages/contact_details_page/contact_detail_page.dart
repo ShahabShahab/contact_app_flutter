@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:parsianotp/models/contact.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_detail_provider.dart';
 import 'package:parsianotp/ui_utils.dart';
 import 'package:parsianotp/widgets/custom_match_parent_button.dart';
@@ -7,19 +7,21 @@ import 'package:parsianotp/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class ContactDetailPage extends StatelessWidget {
-  ContactDetailPage({Key key}) : super(key: key);
+  ContactDetailPage({Key key, this.contact}) : super(key: key){
+    firstNameController.text = contact.firstName;
+    lastNameController.text = contact.lastName;
+    phoneNumberController.text = contact.phone;
+    emailController.text = contact.email;
+    noteController.text = contact.notes;
+  }
 
-  final TextEditingController firstNameController =
-      TextEditingController(text: "shahab");
-  final TextEditingController lastNameController =
-      TextEditingController(text: "sdfhdfs");
-  final TextEditingController phoneNumberController =
-      TextEditingController(text: "09383181063");
-  final TextEditingController emailController =
-      TextEditingController(text: "s@s.c");
-  final TextEditingController noteController =
-      TextEditingController(text: "sdfjfdks");
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
   ContactDetailProvider provider;
+  final Contact contact;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,7 @@ class ContactDetailPage extends StatelessWidget {
       return buildLoading();
     } else {
       return Scaffold(
-          appBar: AppBar(actions: [
-              GestureDetector(
-                child: Container(
-                  width: 50,
-                  child: Icon(Icons.delete),
-                ),
-                onTap: () => _onDeleteContact(context),
-              )
-          ]),
+          appBar: AppBar(actions: [_buildDeleteIcon(context)]),
           body: Column(
             children: [
               CustomTextField(
@@ -82,18 +76,30 @@ class ContactDetailPage extends StatelessWidget {
               ),
             ],
           ),
-          bottomNavigationBar: CustomMatchParentButton(onPressed: () {
-            bool validationResult = provider.areContactDetailInputValid(
-                firstName: firstNameController.text,
-                lastName: lastNameController.text,
-                phoneNumber: phoneNumberController.text,
-                email: emailController.text,
-                note: noteController.text);
-            if (validationResult) {
-              _submitContact(context);
-            }
-          }));
+          bottomNavigationBar: CustomMatchParentButton(
+              onPressed: () {
+                bool validationResult = provider.areContactDetailInputValid(
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                    phoneNumber: phoneNumberController.text,
+                    email: emailController.text,
+                    note: noteController.text);
+                if (validationResult) {
+                  _submitContact(context);
+                }
+              },
+              title: _getTitle()));
     }
+  }
+
+  Widget _buildDeleteIcon(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        width: 50,
+        child: Icon(Icons.delete),
+      ),
+      onTap: () => _onDeleteContact(context),
+    );
   }
 
   void _submitContact(BuildContext context) {
@@ -112,12 +118,15 @@ class ContactDetailPage extends StatelessWidget {
   }
 
   void _onDeleteContact(BuildContext context) {
-    provider.deleteContact(onSuccess: (){
+    provider.deleteContact(onSuccess: () {
       showSnackBar(context, "Successfully Deleted");
       Navigator.pop(context);
       Navigator.pop(context);
-    }, onError: (){
+    }, onError: () {
       showSnackBar(context, provider.error);
     });
   }
+
+  String _getTitle() =>
+      this.contact == null ? "Submit Contact" : "Edit Contact";
 }

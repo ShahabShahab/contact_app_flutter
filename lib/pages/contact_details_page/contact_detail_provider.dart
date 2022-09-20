@@ -1,4 +1,5 @@
 import 'package:parsianotp/base_provider.dart';
+import 'package:parsianotp/models/contact.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_validation_controller.dart';
 
 class ContactDetailProvider extends BaseProvider {
@@ -9,6 +10,7 @@ class ContactDetailProvider extends BaseProvider {
   String noteValidationError = "";
   ContactValidationController _validationController =
       ContactValidationController();
+  Contact contact;
 
   bool areContactDetailInputValid(
       {String firstName,
@@ -115,11 +117,12 @@ class ContactDetailProvider extends BaseProvider {
     onError();
   }
 
-  bool _checkValidationFlags() => firstNameValidationError == null &&
-        lastNameValidationError == null &&
-        noteValidationError == null &&
-        phoneNumberValidationError == null &&
-        emailValidationError == null;
+  bool _checkValidationFlags() =>
+      firstNameValidationError == null &&
+      lastNameValidationError == null &&
+      noteValidationError == null &&
+      phoneNumberValidationError == null &&
+      emailValidationError == null;
 
   Future<void> deleteContact(
       {Null Function() onSuccess, Null Function() onError}) async {

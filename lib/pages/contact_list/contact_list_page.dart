@@ -27,18 +27,14 @@ class ContactListPage extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(),
               body: _buildContactList(data.data),
-              bottomNavigationBar: FloatingActionButton(
+              floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-                                create: (context) => ContactDetailProvider(),
-                                child: ContactDetailPage(),
-                              )));
+                  _openContactDetailPage(context);
                 },
-                child: Text("data"),
+                child: Container(child: Text("Add")),
               ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
             );
         });
   }
@@ -59,10 +55,15 @@ class ContactListPage extends StatelessWidget {
           itemBuilder: (context, index) {
             return Column(
               children: [
-                ContactRow(
-                  name: contacts[index].firstName,
-                  phoneNumber: contacts[index].phone,
-                  picture: contacts[index].picture[0],
+                GestureDetector(
+                  onTap: () {
+                    _openContactDetailPage(context, contact: contacts[index]);
+                  },
+                  child: ContactRow(
+                    name: contacts[index].firstName,
+                    phoneNumber: contacts[index].phone,
+                    picture: contacts[index].picture[0],
+                  ),
                 ),
                 buildMargin(height: 10)
               ],
@@ -74,4 +75,14 @@ class ContactListPage extends StatelessWidget {
   }
 
   bool _contactsListIsEmpty(List<Contact> contacts) => contacts.length == 0;
+
+  _openContactDetailPage(BuildContext context, {Contact contact}) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => ContactDetailProvider(),
+                  child: ContactDetailPage(contact: contact),
+                )));
+  }
 }

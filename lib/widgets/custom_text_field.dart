@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -7,27 +8,30 @@ class CustomTextField extends StatelessWidget {
   final int maxLines;
   final Function(String value) onChanged;
 
-  const CustomTextField(
+  CustomTextField(
       {Key key,
       this.label,
       this.controller,
       this.maxLines = 1,
       this.error,
       this.onChanged})
-      : super(key: key);
+      : super(key: key){
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
+        TextFormField(
           maxLines: this.maxLines,
           controller: controller,
-          onChanged: (value){
+          enabled: true,
+          onChanged: (value) {
             onChanged(value);
           },
           decoration: InputDecoration(
             labelText: this.label,
+            enabled: false
           ),
         ),
         Visibility(

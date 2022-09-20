@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:parsianotp/ui_utils.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ContactRow extends StatelessWidget {
   const ContactRow(
@@ -23,8 +22,8 @@ class ContactRow extends StatelessWidget {
             width: 60,
             height: 60,
             child: _buildContactPicture(context),
-            decoration:
-                BoxDecoration(shape: BoxShape.circle),),
+            decoration: BoxDecoration(shape: BoxShape.circle),
+          ),
           Expanded(
             child: Column(
               children: [
@@ -44,10 +43,16 @@ class ContactRow extends StatelessWidget {
   }
 
   Widget _buildContactPicture(BuildContext context) {
-    try{
-      return SvgPicture.network(this.picture);
-    } catch(e){
-      return SvgPicture.defaultPlaceholderBuilder(context);
-    }
+    // try{
+    //   return SvgPicture.network(this.picture);
+    // } catch(e){
+    //   return SvgPicture.defaultPlaceholderBuilder(context);
+    // }
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(shape: BoxShape.circle,
+      color: Colors.blueGrey),
+    );
   }
 }

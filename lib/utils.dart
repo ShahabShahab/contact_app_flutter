@@ -7,19 +7,20 @@ bool isEmailValid(String email) {
     return false;
   }
   return RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
 }
 
 bool isTelephoneNumberValid(String value) {
-  String pattern = r'^(0)?[0-9]{10}$';
-  RegExp regExp = new RegExp(pattern);
-  if (value.length != 11) {
-    return false;
-  } else if (regExp.hasMatch(value)) {
-    return true;
-  }
-  return false;
+  // String pattern = r'^(0)?[0-9]{10}$';
+  // RegExp regExp = new RegExp(pattern);
+  // if (value.length != 11) {
+  //   return false;
+  // } else if (regExp.hasMatch(value)) {
+  //   return true;
+  // }
+  // return false;
+  return value.length == 10;
 }
 
 void checkForTyping(String value) {}
