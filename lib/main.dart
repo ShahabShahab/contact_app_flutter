@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parsianotp/data_source/local/db_module.dart';
 import 'package:parsianotp/pages/contact_list/contact_list_page.dart';
 import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
+import 'package:parsianotp/pages/splash/splash_page.dart';
 import 'package:provider/provider.dart';
 
 import 'injection_container.dart' as di;
@@ -23,11 +24,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: SafeArea(
-          child: ChangeNotifierProvider(
-            create: (_) => ContactListProvider(),
-            child: ContactListPage(),
-          )
-        ));
+        home: SplashPage());
   }
 }
