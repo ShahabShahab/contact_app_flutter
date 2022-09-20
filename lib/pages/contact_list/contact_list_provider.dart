@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:parsianotp/base_provider.dart';
+import 'package:parsianotp/utils/base_provider.dart';
 import 'package:parsianotp/injection_container.dart';
 import 'package:parsianotp/models/contact.dart';
 import 'package:parsianotp/models/get_contacts_response.dart';

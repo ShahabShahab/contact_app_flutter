@@ -1,7 +1,7 @@
-import 'package:parsianotp/base_provider.dart';
+import 'package:parsianotp/utils/base_provider.dart';
 import 'package:parsianotp/injection_container.dart';
 import 'package:parsianotp/models/contact.dart';
-import 'package:parsianotp/pages/contact_details_page/contact_validation_controller.dart';
+import 'package:parsianotp/utils/validation_controller.dart';
 import 'package:parsianotp/repos/contacts_repository.dart';
 
 class ContactDetailProvider extends BaseProvider {
@@ -10,8 +10,8 @@ class ContactDetailProvider extends BaseProvider {
   String phoneNumberValidationError = "";
   String emailValidationError = "";
   String noteValidationError = "";
-  ContactValidationController _validationController =
-      ContactValidationController();
+  ValidationController _validationController =
+      ValidationController();
   Contact contact;
   ContactsRepository repository = sl<ContactsRepository>();
 
@@ -33,7 +33,7 @@ class ContactDetailProvider extends BaseProvider {
   void _validateNote(String note) {
     _validationController.validateText(
         text: note,
-        contactValidateCallback: (error) {
+        validationCallback: (error) {
           noteValidationError = error;
         });
   }
@@ -41,7 +41,7 @@ class ContactDetailProvider extends BaseProvider {
   void _validateLastName(String lastName) {
     _validationController.validateText(
         text: lastName,
-        contactValidateCallback: (error) {
+        validationCallback: (error) {
           lastNameValidationError = error;
         });
   }
@@ -49,7 +49,7 @@ class ContactDetailProvider extends BaseProvider {
   void _validateFirstName(String firstName) {
     _validationController.validateText(
         text: firstName,
-        contactValidateCallback: (error) {
+        validationCallback: (error) {
           firstNameValidationError = error;
         });
   }
@@ -57,7 +57,7 @@ class ContactDetailProvider extends BaseProvider {
   void _validateEmail(String email) {
     _validationController.validateEmail(
         email: email,
-        contactValidateCallback: (error) {
+        validationCallback: (error) {
           emailValidationError = error;
         });
   }
@@ -65,7 +65,7 @@ class ContactDetailProvider extends BaseProvider {
   void _validatePhoneNumber(String phoneNumber) {
     _validationController.validatePhoneNumber(
         phoneNumber: phoneNumber,
-        contactValidateCallback: (error) {
+        validationCallback: (error) {
           phoneNumberValidationError = error;
         });
   }

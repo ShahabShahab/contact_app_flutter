@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:parsianotp/pages/contact_list/contact_list_page.dart';
 import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
+import 'package:parsianotp/pages/login/login_page.dart';
+import 'package:parsianotp/pages/login/login_provider.dart';
 import 'package:provider/provider.dart';
 
 class SplashPage extends StatelessWidget {
@@ -29,8 +31,8 @@ class SplashPage extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
-              create: (context) => ContactListProvider(),
-              child: ContactListPage(),
+              create: (context) => LoginProvider(),
+              child: LoginPage(),
             )));
   }
 }

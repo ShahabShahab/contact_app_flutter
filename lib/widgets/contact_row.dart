@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parsianotp/ui_utils.dart';
+import 'package:parsianotp/utils/ui_utils.dart';
 
 class ContactRow extends StatelessWidget {
   const ContactRow(

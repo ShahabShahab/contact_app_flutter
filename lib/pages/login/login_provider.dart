@@ -1,10 +1,12 @@
-import 'package:parsianotp/base_provider.dart';
 import 'package:parsianotp/injection_container.dart';
 import 'package:parsianotp/repos/login_repository.dart';
+import 'package:parsianotp/utils/base_provider.dart';
+import 'package:parsianotp/utils/validation_controller.dart';
 
 class LoginProvider extends BaseProvider {
   String userNameValidationError;
   String passwordValidationError;
+  ValidationController _controller = ValidationController();
   LoginRepository repository = sl<LoginRepository>();
 
   void checkForUserNameTyping(String userName) {
@@ -21,9 +23,37 @@ class LoginProvider extends BaseProvider {
     }
   }
 
+  bool areLoginInputsValid(String email, String password) {
+    bool isEmailValid = true;
+    bool isPasswordValid = true;
+    _controller.validateEmail(
+        email: email,
+        validationCallback: (msg) {
+          if (msg == null) {
+            isEmailValid = true;
+          } else {
+            userNameValidationError = msg;
+            isEmailValid = false;
+          }
+        });
+    _controller.validatePassword(
+        password: password,
+        validationCallback: (msg) {
+          if (msg == null) {
+            isPasswordValid = true;
+          } else {
+            isPasswordValid = false;
+            passwordValidationError = msg;
+          }
+        });
+    notifyListeners();
+    return isEmailValid && isPasswordValid;
+  }
+
   Future login(String username, String password,
       {Function() onSuccess, Function() onError}) async {
     await Future.delayed(Duration(seconds: 3));
     repository.login(username, password);
+    onSuccess();
   }
 }
