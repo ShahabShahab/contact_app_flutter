@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:parsianotp/models/contact.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_detail_page.dart';
 import 'package:parsianotp/pages/contact_details_page/contact_detail_provider.dart';
 import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
 import 'package:parsianotp/ui_utils.dart';
+import 'package:parsianotp/widgets/contact_row.dart';
 import 'package:provider/provider.dart';
 
 class ContactListPage extends StatelessWidget {
-   ContactListPage({Key key}) : super(key: key);
-  ContactListProvider provider ;
+  ContactListPage({Key key}) : super(key: key);
+  ContactListProvider provider;
 
   @override
   Widget build(BuildContext context) {
-    provider= Provider.of<ContactListProvider>(context, listen: false);
+    provider = Provider.of<ContactListProvider>(context, listen: false);
     return FutureBuilder(
         future: provider.getContacts(),
         builder: (context, data) {
           if (data.connectionState == ConnectionState.waiting) {
             return buildLoading();
           } else if (data.hasError) {
-            return buildTryAgainWidget(error: "Something Went wrong",
-            onTryAgainClicked: () => _getContact());
+            return buildTryAgainWidget(
+                error: "Something Went wrong",
+                onTryAgainClicked: () => _getContact());
           } else
             return Scaffold(
               appBar: AppBar(),
-              body: Center(
-                child: Text(provider.errorMessage),
-              ),
+              body: _buildContactList(data.data),
               bottomNavigationBar: FloatingActionButton(
                 onPressed: () {
                   Navigator.push(
@@ -43,4 +44,34 @@ class ContactListPage extends StatelessWidget {
   }
 
   Future<void> _getContact() => provider.getContacts();
+
+  Widget _buildContactList(List<Contact> contacts) {
+    if (_contactsListIsEmpty(contacts)) {
+      return Scaffold(
+        body: Center(
+          child: Text("Not Contacts found"),
+        ),
+      );
+    } else
+      return Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                ContactRow(
+                  name: contacts[index].firstName,
+                  phoneNumber: contacts[index].phone,
+                  picture: contacts[index].picture[0],
+                ),
+                buildMargin(height: 10)
+              ],
+            );
+          },
+          itemCount: contacts.length,
+        ),
+      );
+  }
+
+  bool _contactsListIsEmpty(List<Contact> contacts) => contacts.length == 0;
 }

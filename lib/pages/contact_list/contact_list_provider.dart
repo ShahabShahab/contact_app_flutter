@@ -1,9 +1,9 @@
 import 'dart:collection';
 
-import 'package:flutter/material.dart';
 import 'package:parsianotp/base_provider.dart';
 import 'package:parsianotp/injection_container.dart';
 import 'package:parsianotp/models/contact.dart';
+import 'package:parsianotp/models/get_contacts_response.dart';
 import 'package:parsianotp/repos/contacts_repository.dart';
 
 class ContactListProvider extends BaseProvider {
@@ -15,14 +15,12 @@ class ContactListProvider extends BaseProvider {
 
   UnmodifiableListView<Contact> get contacts => UnmodifiableListView(_contacts);
 
-  Future<void> getContacts(
-      {@required Function(List<Contact> response) onSuccess,
-      @required Function(String error) onError}) async {
+  Future<List<Contact>> getContacts() async {
     var response = await repository.getContacts();
     if (response.ok && response.data != null) {
-      onSuccess(response.data);
+      return Future.value(response.data.data);
     } else {
-      onError(response.error.message);
+      return Future.error(response.error.message);
     }
   }
 }
