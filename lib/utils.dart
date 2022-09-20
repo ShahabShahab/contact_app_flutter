@@ -21,3 +21,5 @@ bool isTelephoneNumberValid(String value) {
   }
   return false;
 }
+
+void checkForTyping(String value) {}

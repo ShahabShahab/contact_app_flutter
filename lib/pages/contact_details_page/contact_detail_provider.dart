@@ -115,13 +115,11 @@ class ContactDetailProvider extends BaseProvider {
     onError();
   }
 
-  bool _checkValidationFlags() {
-    return firstNameValidationError == null &&
+  bool _checkValidationFlags() => firstNameValidationError == null &&
         lastNameValidationError == null &&
         noteValidationError == null &&
         phoneNumberValidationError == null &&
         emailValidationError == null;
-  }
 
   Future<void> deleteContact(
       {Null Function() onSuccess, Null Function() onError}) async {
