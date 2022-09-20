@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 
-/// _id : "string"
-/// firstName : "string"
-/// lastName : "string"
-/// email : "string"
-/// notes : "string"
-/// picture : ["string"]
-/// phone : "string"
+/// id : "1"
+/// firstName : "John"
+/// notes : "Very polite guy"
+/// phone : "+123456789"
+/// email : "email@email.de"
+/// picture : ["noimg.png"]
+/// lastName : "Doe"
+/// created_at : "2022-09-19T12:53:32.224Z"
 
 part 'contact.g.dart';
 
@@ -15,19 +16,21 @@ class Contact {
   Contact({
       this.id, 
       this.firstName, 
-      this.lastName, 
-      this.email, 
       this.notes, 
+      this.phone, 
+      this.email, 
       this.picture, 
-      this.phone,});
+      this.lastName, 
+      this.createdAt,});
 
   String id;
   String firstName;
-  String lastName;
-  String email;
   String notes;
-  List<String> picture;
   String phone;
+  String email;
+  List<String> picture;
+  String lastName;
+  String createdAt;
 
   factory Contact.fromJson(dynamic json) => _$ContactFromJson(json);
 

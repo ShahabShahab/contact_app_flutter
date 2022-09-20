@@ -25,14 +25,7 @@ class ContactDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     provider = Provider.of<ContactDetailProvider>(context);
     if (provider.isLoading) {
-      return Scaffold(
-        body: Center(
-            child: Container(
-          child: Lottie.asset('assets/loading.json'),
-          height: 200,
-          width: 200,
-        )),
-      );
+      return buildLoading();
     } else {
       return Scaffold(
           appBar: AppBar(actions: [

@@ -12,7 +12,7 @@ class NetworkModule {
 
   Dio getDio() {
     return dioOptions()
-      ..options.baseUrl = "https://jsonplaceholder.typicode.com"
+      ..options.baseUrl = "https://api.restpoint.io/api/"
       ..options.connectTimeout = 10000
       ..options.receiveTimeout = 10000
       ..interceptors.add(LogInterceptor(
@@ -20,6 +20,11 @@ class NetworkModule {
         responseBody: true,
         requestBody: true,
         requestHeader: true,
-      ));
+      ))
+      ..interceptors
+          .add(InterceptorsWrapper(onRequest: (Options options) async {
+        options.headers.putIfAbsent(
+            'x-endpoint-key', () => "38444aae02c84851969f93e5d0e6eb37");
+      }));
   }
 }
