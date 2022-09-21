@@ -11,6 +11,10 @@ class ContactListProvider extends BaseProvider {
   String _errorMessage = "sdds";
   ContactsRepository repository = sl<ContactsRepository>();
 
+  set contacts(List<Contact> value) {
+    _contacts = value;
+  }
+
   String get errorMessage => _errorMessage;
 
   UnmodifiableListView<Contact> get contacts => UnmodifiableListView(_contacts);
@@ -18,6 +22,7 @@ class ContactListProvider extends BaseProvider {
   Future<List<Contact>> getContacts() async {
     var response = await repository.getContacts();
     if (response.ok && response.data != null) {
+      _contacts = response.data.data;
       return Future.value(response.data.data);
     } else {
       return Future.error(response.error.message);

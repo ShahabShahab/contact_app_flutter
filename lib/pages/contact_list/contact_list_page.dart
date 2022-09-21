@@ -10,12 +10,13 @@ import 'package:provider/provider.dart';
 class ContactListPage extends StatelessWidget {
   ContactListPage({Key key}) : super(key: key);
   ContactListProvider provider;
+  Future _getContacts;
 
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<ContactListProvider>(context, listen: false);
     return FutureBuilder(
-        future: provider.getContacts(),
+        future: _getContact(),
         builder: (context, data) {
           if (data.connectionState == ConnectionState.waiting) {
             return buildLoading();
@@ -71,13 +72,13 @@ class ContactListPage extends StatelessWidget {
   }
 
   ContactRow _buildContactRow(List<Contact> contacts, int index) {
-    try{
+    try {
       return ContactRow(
         name: contacts[index].firstName,
         phoneNumber: contacts[index].phone,
         picture: contacts[index].picture[0],
       );
-    } catch(e){
+    } catch (e) {
       return ContactRow(
         name: contacts[index].firstName,
         phoneNumber: contacts[index].phone,
@@ -88,8 +89,8 @@ class ContactListPage extends StatelessWidget {
 
   bool _contactsListIsEmpty(List<Contact> contacts) => contacts.length == 0;
 
-  _openContactDetailPage(BuildContext context, {Contact contact}) {
-    Navigator.push(
+  _openContactDetailPage(BuildContext context, {Contact contact}) async {
+    await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
