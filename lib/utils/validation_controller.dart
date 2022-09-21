@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:parsianotp/utils/utils.dart';
 
-typedef ValidationCallback = Function(String errorValidateMsg);
+typedef ValidationCallback = Function(String? errorValidateMsg);
 
 class ValidationController {
   void validateText(
-      {@required String text,
-      @required ValidationCallback validationCallback}) {
+      {required String text,
+      required ValidationCallback validationCallback}) {
     if (!isStringValid(text)) {
       validationCallback("Field must be at least 3 characters");
     } else {
@@ -15,8 +15,8 @@ class ValidationController {
   }
 
   void validateEmail(
-      {@required String email,
-      @required ValidationCallback validationCallback}) {
+      {required String email,
+      required ValidationCallback validationCallback}) {
     if (!isStringValid(email)) {
       validationCallback("Email must be filled.");
     } else if (!isEmailValid(email)) {
@@ -27,8 +27,8 @@ class ValidationController {
   }
 
   void validatePhoneNumber(
-      {@required String phoneNumber,
-      @required ValidationCallback validationCallback}) {
+      {required String phoneNumber,
+      required ValidationCallback validationCallback}) {
     if (!isStringValid(phoneNumber)) {
       validationCallback("PhoneNumber must be filled.");
     } else if (!isTelephoneNumberValid(phoneNumber)) {
@@ -39,8 +39,8 @@ class ValidationController {
   }
 
   void validatePassword(
-      {@required String password,
-      @required ValidationCallback validationCallback}) {
+      {required String password,
+      required ValidationCallback validationCallback}) {
     if (password.length < 6) {
       validationCallback("Password Length must be at least 6 character");
     } else {

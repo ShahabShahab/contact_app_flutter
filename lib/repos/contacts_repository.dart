@@ -22,7 +22,7 @@ class ContactsRepository implements BaseRepository {
     }
   }
 
-  Future<ResponseWrapper> deleteContact({String contactId}) async {
+  Future<ResponseWrapper> deleteContact({required String contactId}) async {
     try {
       await restClient.deleteContact(contactId);
       return ResponseWrapper.builder(true, null, true);

@@ -11,8 +11,8 @@ class ResponseErrorWrapper {
     this.message,
   });
 
-  int code;
-  String message;
+  int? code;
+  String? message;
 
   factory ResponseErrorWrapper.fromJson(dynamic json) => _$ResponseErrorWrapperFromJson(json);
 

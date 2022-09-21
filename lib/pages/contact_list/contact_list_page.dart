@@ -8,8 +8,8 @@ import 'package:parsianotp/widgets/contact_row.dart';
 import 'package:provider/provider.dart';
 
 class ContactListPage extends StatelessWidget {
-  ContactListPage({Key key}) : super(key: key);
-  ContactListProvider provider;
+  ContactListPage({Key? key}) : super(key: key);
+  late ContactListProvider provider;
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +23,20 @@ class ContactListPage extends StatelessWidget {
             return buildTryAgainWidget(
                 error: "Something Went wrong",
                 onTryAgainClicked: () => _getContact());
-          } else
+          } else {
             return Scaffold(
               appBar: AppBar(),
-              body: _buildContactList(data.data),
+              body: _buildContactList(data.data as List<Contact>),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
                   _openContactDetailPage(context);
                 },
-                child: Container(child: Text("Add")),
+                child: const Text("Add"),
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endFloat,
             );
+          }
         });
   }
 
@@ -73,14 +74,14 @@ class ContactListPage extends StatelessWidget {
   ContactRow _buildContactRow(List<Contact> contacts, int index) {
     try {
       return ContactRow(
-        name: contacts[index].firstName,
-        phoneNumber: contacts[index].phone,
-        picture: contacts[index].picture[0],
+        name: contacts[index].firstName!,
+        phoneNumber: contacts[index].phone!,
+        picture: contacts[index].picture![0],
       );
     } catch (e) {
       return ContactRow(
-        name: contacts[index].firstName,
-        phoneNumber: contacts[index].phone,
+        name: contacts[index].firstName!,
+        phoneNumber: contacts[index].phone!,
         picture: "Picture",
       );
     }
@@ -88,7 +89,7 @@ class ContactListPage extends StatelessWidget {
 
   bool _contactsListIsEmpty(List<Contact> contacts) => contacts.length == 0;
 
-  _openContactDetailPage(BuildContext context, {Contact contact}) async {
+  _openContactDetailPage(BuildContext context, {Contact? contact}) async {
     await Navigator.push(
         context,
         MaterialPageRoute(

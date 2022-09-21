@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
-  final String error;
+  final String? error;
   final TextEditingController controller;
-  final int maxLines;
+  final int? maxLines;
   final Function(String value) onChanged;
 
   CustomTextField(
-      {Key key,
-      this.label,
-      this.controller,
+      {Key? key,
+      required this.label,
+      required this.controller,
       this.maxLines = 1,
       this.error,
-      this.onChanged})
-      : super(key: key){
-  }
+      required this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextFormField(
-          maxLines: this.maxLines,
+          maxLines: maxLines,
           controller: controller,
           enabled: true,
           onChanged: (value) {
             onChanged(value);
           },
           decoration: InputDecoration(
-            labelText: this.label,
+            labelText: label,
             enabled: false
           ),
         ),
@@ -38,7 +35,7 @@ class CustomTextField extends StatelessWidget {
           visible: error != null,
           child: Text(
             error ?? "",
-            style: TextStyle(color: Colors.red),
+            style: const TextStyle(color: Colors.red),
           ),
         )
       ],

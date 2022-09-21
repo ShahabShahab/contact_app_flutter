@@ -4,20 +4,20 @@ import 'package:parsianotp/utils/base_provider.dart';
 import 'package:parsianotp/utils/validation_controller.dart';
 
 class LoginProvider extends BaseProvider {
-  String userNameValidationError;
-  String passwordValidationError;
-  ValidationController _controller = ValidationController();
+  late String userNameValidationError;
+  late String passwordValidationError;
+  final ValidationController _controller = ValidationController();
   LoginRepository repository = sl<LoginRepository>();
 
   void checkForUserNameTyping(String userName) {
-    if (userName.length > 0) {
+    if (userName.isNotEmpty) {
       userNameValidationError = "";
       notifyListeners();
     }
   }
 
   void checkForPasswordTyping(String password) {
-    if (password.length > 0) {
+    if (password.isNotEmpty) {
       passwordValidationError = "";
       notifyListeners();
     }
@@ -51,7 +51,7 @@ class LoginProvider extends BaseProvider {
   }
 
   Future login(String username, String password,
-      {Function() onSuccess, Function() onError}) async {
+      {required Function() onSuccess, required Function() onError}) async {
     setState(ViewState.LOADING);
     repository.login(username, password);
     onSuccess();

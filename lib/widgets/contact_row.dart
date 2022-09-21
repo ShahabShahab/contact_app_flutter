@@ -3,7 +3,7 @@ import 'package:parsianotp/utils/ui_utils.dart';
 
 class ContactRow extends StatelessWidget {
   const ContactRow(
-      {Key key,
+      {Key? key,
       this.name = "---",
       this.phoneNumber = "---",
       this.picture = "---"})
@@ -22,18 +22,18 @@ class ContactRow extends StatelessWidget {
             width: 60,
             height: 60,
             child: _buildContactPicture(context),
-            decoration: BoxDecoration(shape: BoxShape.circle),
+            decoration: const BoxDecoration(shape: BoxShape.circle),
           ),
           Expanded(
             child: Column(
               children: [
                 Text(
-                  this.name,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  name,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 buildMargin(height: 20),
-                Text(this.phoneNumber,
-                    style: TextStyle(color: Colors.white, fontSize: 30))
+                Text(phoneNumber,
+                    style: const TextStyle(color: Colors.white, fontSize: 30))
               ],
             ),
           )
@@ -51,7 +51,7 @@ class ContactRow extends StatelessWidget {
     return Container(
       width: 100,
       height: 100,
-      decoration: BoxDecoration(shape: BoxShape.circle,
+      decoration: const BoxDecoration(shape: BoxShape.circle,
       color: Colors.blueGrey),
     );
   }

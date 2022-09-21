@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class BaseProvider with ChangeNotifier {
   ViewState _state = ViewState.IDLE;
-  String error;
+  String? error;
 
   ViewState get state => _state;
 
@@ -20,8 +20,6 @@ class BaseProvider with ChangeNotifier {
     _state = ViewState.ERROR;
     notifyListeners();
   }
-
-  void dispose();
 }
 
 enum ViewState { IDLE, LOADING, ERROR, INITIALIZE }

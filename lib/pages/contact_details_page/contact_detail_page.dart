@@ -7,13 +7,13 @@ import 'package:parsianotp/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class ContactDetailPage extends StatelessWidget {
-  ContactDetailPage({Key key, this.contact}) : super(key: key) {
+  ContactDetailPage({Key? key, this.contact}) : super(key: key) {
     if (contact != null) {
-      firstNameController.text = contact.firstName;
-      lastNameController.text = contact.lastName;
-      phoneNumberController.text = contact.phone;
-      emailController.text = contact.email;
-      noteController.text = contact.notes;
+      firstNameController.text = contact?.firstName ??"---";
+      lastNameController.text = contact?.lastName ?? "---";
+      phoneNumberController.text = contact?.phone ?? "---";
+      emailController.text = contact?.email ?? "---";
+      noteController.text = contact?.notes ?? "---";
     }
   }
 
@@ -22,8 +22,8 @@ class ContactDetailPage extends StatelessWidget {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
-  ContactDetailProvider provider;
-  final Contact contact;
+  late ContactDetailProvider provider;
+  final Contact? contact;
 
   @override
   Widget build(BuildContext context) {
@@ -114,23 +114,23 @@ class ContactDetailPage extends StatelessWidget {
         phoneNumber: phoneNumberController.text,
         email: emailController.text,
         note: noteController.text,
-        edit: this.contact != null,
+        edit: contact != null,
         onSuccess: () {
           Navigator.pop(context);
         },
         onError: () {
-          showSnackBar(context, provider.error);
+          showSnackBar(context, provider.error!);
         });
   }
 
   void _onDeleteContact(BuildContext context) {
-    provider.deleteContact(contact.id, onSuccess: () {
+    provider.deleteContact(contact!.id!, onSuccess: () {
       Navigator.pop(context);
     }, onError: () {
-      showSnackBar(context, provider.error);
+      showSnackBar(context, provider.error!);
     });
   }
 
   String _getTitle() =>
-      this.contact == null ? "Submit Contact" : "Edit Contact";
+      contact == null ? "Submit Contact" : "Edit Contact";
 }

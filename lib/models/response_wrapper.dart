@@ -3,12 +3,12 @@ import 'package:parsianotp/models/response_error_wrapper.dart';
 
 class ResponseWrapper<T> {
   final bool ok;
-  final ResponseErrorWrapper error;
-  final T data;
+  final ResponseErrorWrapper? error;
+  final T? data;
 
   ResponseWrapper({this.ok = true, this.error, this.data});
 
-  factory ResponseWrapper.fromDioError({DioError error}) {
+  factory ResponseWrapper.fromDioError({required DioError error}) {
     switch (error.type) {
       case DioErrorType.RESPONSE:
         return ResponseWrapper.fromDioErrorResponse(error);
@@ -38,7 +38,7 @@ class ResponseWrapper<T> {
     return ResponseWrapper<T>(ok: json["ok"], data: fromjson(json));
   }
 
-  factory ResponseWrapper.builder(bool flag, String error, T data) {
+  factory ResponseWrapper.builder(bool flag, String? error, T data) {
     return ResponseWrapper<T>(ok: flag, data: data);
   }
 

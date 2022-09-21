@@ -3,7 +3,7 @@ import 'package:parsianotp/constants/hive_constants.dart';
 import 'package:parsianotp/data_source/data_source.dart';
 
 class LocalDataSource implements DataSource {
-  Box<bool> loginBox;
+  late Box<bool> loginBox;
 
   LocalDataSource() {
     loginBox = Hive.box(HAS_USER_ALREADY_LOGGED_IN);
@@ -14,6 +14,6 @@ class LocalDataSource implements DataSource {
   }
 
   Future<bool> getUserAlreadyLoggedIn() async {
-    return await loginBox.get(HAS_USER_ALREADY_LOGGED_IN, defaultValue: false);
+    return loginBox.get(HAS_USER_ALREADY_LOGGED_IN, defaultValue: false);
   }
 }

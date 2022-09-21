@@ -8,9 +8,9 @@ import 'package:parsianotp/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
-  LoginProvider provider;
+  late LoginProvider provider;
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 

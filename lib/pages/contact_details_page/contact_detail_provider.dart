@@ -5,22 +5,22 @@ import 'package:parsianotp/utils/validation_controller.dart';
 import 'package:parsianotp/repos/contacts_repository.dart';
 
 class ContactDetailProvider extends BaseProvider {
-  String firstNameValidationError = "";
-  String lastNameValidationError = "";
-  String phoneNumberValidationError = "";
-  String emailValidationError = "";
-  String noteValidationError = "";
-  ValidationController _validationController =
+  String? firstNameValidationError = "";
+  String? lastNameValidationError = "";
+  String? phoneNumberValidationError = "";
+  String? emailValidationError = "";
+  String? noteValidationError = "";
+  final ValidationController _validationController =
       ValidationController();
-  Contact contact;
+  Contact? contact;
   ContactsRepository repository = sl<ContactsRepository>();
 
   bool areContactDetailInputValid(
-      {String firstName,
-      String lastName,
-      String phoneNumber,
-      String email,
-      String note}) {
+      {required String firstName,
+      required String lastName,
+      required String phoneNumber,
+      required String email,
+      required String note}) {
     _validateFirstName(firstName);
     _validateLastName(lastName);
     _validateEmail(email);
@@ -71,49 +71,49 @@ class ContactDetailProvider extends BaseProvider {
   }
 
   void checkFirstNameValidationError(String firstName) {
-    if (firstName.length > 0) {
+    if (firstName.isNotEmpty) {
       firstNameValidationError = "";
       notifyListeners();
     }
   }
 
   void checkLastNameValidationError(String lastName) {
-    if (lastName.length > 0) {
+    if (lastName.isNotEmpty) {
       lastNameValidationError = "";
       notifyListeners();
     }
   }
 
   void checkPhoneNumberValidationError(String phoneNumber) {
-    if (phoneNumber.length > 0) {
+    if (phoneNumber.isNotEmpty) {
       phoneNumberValidationError = "";
       notifyListeners();
     }
   }
 
   void checkEmailValidationError(String email) {
-    if (email.length > 0) {
+    if (email.isNotEmpty) {
       emailValidationError = "";
       notifyListeners();
     }
   }
 
   void checkNoteValidationError(String note) {
-    if (note.length > 0) {
+    if (note.isNotEmpty) {
       noteValidationError = "";
       notifyListeners();
     }
   }
 
   Future<void> operateOnContact(
-      {String firstName,
-      String lastName,
-      String phoneNumber,
-      String email,
-      String note,
-      Null Function() onSuccess,
-      Null Function() onError,
-      bool edit}) async {
+      {required String firstName,
+      required String lastName,
+      required String phoneNumber,
+      required String email,
+      required String note,
+      required Null Function() onSuccess,
+      required Null Function() onError,
+      required bool edit}) async {
     setState(ViewState.LOADING);
     var response;
     response = await repository.operateOnContact(
@@ -141,7 +141,7 @@ class ContactDetailProvider extends BaseProvider {
       emailValidationError == null;
 
   Future<void> deleteContact(String id,
-      {Null Function() onSuccess, Null Function() onError}) async {
+      {required Null Function() onSuccess, required Null Function() onError}) async {
     setState(ViewState.LOADING);
     try {
       var response = await repository.deleteContact(contactId: id);
@@ -149,7 +149,7 @@ class ContactDetailProvider extends BaseProvider {
         onSuccess();
         setState(ViewState.IDLE);
       } else {
-        error = response.error.message;
+        error = response.error?.message;
         setState(ViewState.ERROR);
         onError();
       }

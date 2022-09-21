@@ -5,10 +5,10 @@ import 'package:lottie/lottie.dart';
 Flushbar showSnackBar(
   BuildContext context,
   String message, {
-  Color backgroundColor,
+  Color? backgroundColor,
 }) {
   return Flushbar(
-    animationDuration: Duration(milliseconds: 500),
+    animationDuration: const Duration(milliseconds: 500),
     messageText: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -22,8 +22,8 @@ Flushbar showSnackBar(
         ),
       ],
     ),
-    backgroundColor: backgroundColor ?? Color(0xffCC0000),
-    duration: Duration(seconds: 3),
+    backgroundColor: backgroundColor ?? const Color(0xffCC0000),
+    duration: const Duration(seconds: 3),
     isDismissible: true,
     dismissDirection: FlushbarDismissDirection.VERTICAL,
   )..show(context);
@@ -37,7 +37,7 @@ Widget buildMargin({double height = 0, double width = 0}) => SizedBox(
 Widget buildLoading() {
   return Scaffold(
     body: Center(
-        child: Container(
+        child: SizedBox(
       child: Lottie.asset('assets/loading.json'),
       height: 200,
       width: 200,
@@ -45,15 +45,15 @@ Widget buildLoading() {
   );
 }
 
-Widget buildTryAgainWidget({String error, VoidCallback onTryAgainClicked}) {
+Widget buildTryAgainWidget({required String error, required VoidCallback onTryAgainClicked}) {
   return Scaffold(
     body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(error),
-          ElevatedButton(style: ButtonStyle(
-          ),onPressed: onTryAgainClicked, child: Text("Try Again"))
+          ElevatedButton(style: const ButtonStyle(
+          ),onPressed: onTryAgainClicked, child: const Text("Try Again"))
         ],
       ),
     ),

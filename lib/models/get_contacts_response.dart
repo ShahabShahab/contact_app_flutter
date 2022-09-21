@@ -14,9 +14,9 @@ class GetContactsResponse {
       this.count, 
       this.data,});
 
-  List<Links> links;
-  String count;
-  List<Contact> data;
+  List<Links>? links;
+  String? count;
+  List<Contact>? data;
 
   factory GetContactsResponse.fromJson(dynamic json) => _$GetContactsResponseFromJson(json);
 
@@ -33,8 +33,8 @@ class Links {
       this.rel, 
       this.href,});
 
-  String rel;
-  String href;
+  String? rel;
+  String? href;
 
   factory Links.fromJson(dynamic json) => _$LinksFromJson(json);
 

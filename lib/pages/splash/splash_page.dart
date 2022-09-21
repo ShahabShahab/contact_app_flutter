@@ -8,9 +8,9 @@ import 'package:parsianotp/pages/splash/splash_provider.dart';
 import 'package:provider/provider.dart';
 
 class SplashPage extends StatelessWidget {
-  SplashPage({Key key}) : super(key: key);
+  SplashPage({Key? key}) : super(key: key);
 
-  SplashProvider provider;
+  late SplashProvider provider;
 
   @override
   Widget build(BuildContext context) {

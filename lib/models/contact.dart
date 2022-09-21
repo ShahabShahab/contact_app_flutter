@@ -23,14 +23,14 @@ class Contact {
       this.lastName, 
       this.createdAt,});
 
-  String id;
-  String firstName;
-  String notes;
-  String phone;
-  String email;
-  List<String> picture;
-  String lastName;
-  String createdAt;
+  String? id;
+  String? firstName;
+  String? notes;
+  String? phone;
+  String? email;
+  List<String>? picture;
+  String? lastName;
+  String? createdAt;
 
   factory Contact.fromJson(dynamic json) => _$ContactFromJson(json);
 

@@ -8,7 +8,7 @@ import 'package:parsianotp/repos/contacts_repository.dart';
 
 class ContactListProvider extends BaseProvider {
   List<Contact> _contacts = [];
-  String _errorMessage = "sdds";
+  final String _errorMessage = "";
   ContactsRepository repository = sl<ContactsRepository>();
 
   set contacts(List<Contact> value) {
@@ -22,10 +22,10 @@ class ContactListProvider extends BaseProvider {
   Future<List<Contact>> getContacts() async {
     var response = await repository.getContacts();
     if (response.ok && response.data != null) {
-      _contacts = response.data.data;
-      return Future.value(response.data.data);
+      _contacts = response.data!.data!;
+      return Future.value(response.data!.data!);
     } else {
-      return Future.error(response.error.message);
+      return Future.error(response.error!.message!);
     }
   }
 }
