@@ -52,8 +52,9 @@ class LoginProvider extends BaseProvider {
 
   Future login(String username, String password,
       {Function() onSuccess, Function() onError}) async {
-    await Future.delayed(Duration(seconds: 3));
+    setState(ViewState.LOADING);
     repository.login(username, password);
     onSuccess();
+    setState(ViewState.IDLE);
   }
 }

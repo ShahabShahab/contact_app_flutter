@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
         userNameController.text, passwordController.text)) {
       provider.login(userNameController.text, passwordController.text,
           onSuccess: () {
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => ChangeNotifierProvider(

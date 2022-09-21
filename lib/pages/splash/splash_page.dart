@@ -4,35 +4,50 @@ import 'package:parsianotp/pages/contact_list/contact_list_page.dart';
 import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
 import 'package:parsianotp/pages/login/login_page.dart';
 import 'package:parsianotp/pages/login/login_provider.dart';
+import 'package:parsianotp/pages/splash/splash_provider.dart';
 import 'package:provider/provider.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({Key key}) : super(key: key);
+  SplashPage({Key key}) : super(key: key);
+
+  SplashProvider provider;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(future: hasUserAlreadyLoggedIn(context),
-      builder: (context, data) {
+    provider = Provider.of<SplashProvider>(context);
+    return FutureBuilder(
+        future: hasUserAlreadyLoggedIn(context),
+        builder: (context, data) {
           return Scaffold(
             body: Center(
                 child: Container(
-                  child: Lottie.asset('assets/splash.json'),
-                  height: 300,
-                  width: 300,
-                )),
+              child: Lottie.asset('assets/splash.json'),
+              height: 300,
+              width: 300,
+            )),
           );
-        }
-    );
+        });
   }
 
   Future hasUserAlreadyLoggedIn(BuildContext context) async {
     await Future.delayed(Duration(seconds: 3));
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ChangeNotifierProvider(
-              create: (context) => LoginProvider(),
-              child: LoginPage(),
-            )));
+    bool hasUserAlreadyLoggedIn = await provider.hasUserAlreadyLoggedIn();
+    if (hasUserAlreadyLoggedIn) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                    create: (context) => ContactListProvider(),
+                    child: ContactListPage(),
+                  )));
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                    create: (context) => LoginProvider(),
+                    child: LoginPage(),
+                  )));
+    }
   }
 }

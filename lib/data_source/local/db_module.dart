@@ -16,11 +16,11 @@ class DBModule {
     // if (!Hive.isAdapterRegistered(CONTACTS_ADAPTER_ID))
     //   Hive.registerAdapter<Contact>(ContactAdapter());
     // //add boxes here
-    // try {
-    //   if (!Hive.isBoxOpen(CONTACTS_BOX_NAME))
-    //     await Hive.openBox<Contact>(CONTACTS_BOX_NAME);
-    // } catch (e, s) {
-    //   Hive.deleteBoxFromDisk(CONTACTS_BOX_NAME);
-    // }
+    try {
+      if (!Hive.isBoxOpen(HAS_USER_ALREADY_LOGGED_IN))
+        await Hive.openBox<bool>(HAS_USER_ALREADY_LOGGED_IN);
+    } catch (e, s) {
+      Hive.deleteBoxFromDisk(HAS_USER_ALREADY_LOGGED_IN);
+    }
   }
 }
