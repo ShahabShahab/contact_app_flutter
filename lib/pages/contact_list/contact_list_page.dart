@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 class ContactListPage extends StatelessWidget {
   ContactListPage({Key key}) : super(key: key);
   ContactListProvider provider;
-  Future _getContacts;
 
   @override
   Widget build(BuildContext context) {
@@ -97,5 +96,12 @@ class ContactListPage extends StatelessWidget {
                   create: (context) => ContactDetailProvider(),
                   child: ContactDetailPage(contact: contact),
                 )));
+    await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (context) => ContactListProvider(),
+              child: ContactListPage(),
+            )));
   }
 }
