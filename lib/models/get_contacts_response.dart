@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:parsianotp/models/contact.dart';
+import 'package:contactapp/models/contact.dart';
 
 /// _links : [{"rel":"self","href":"https://api.restpoint.io/contacts"},{"rel":"items","href":"https://api.restpoint.io/contacts/{id}"}]
 /// count : "3"

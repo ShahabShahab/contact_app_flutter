@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:parsianotp/models/contact.dart';
-import 'package:parsianotp/pages/contact_details_page/contact_detail_provider.dart';
-import 'package:parsianotp/utils/ui_utils.dart';
-import 'package:parsianotp/widgets/custom_match_parent_button.dart';
-import 'package:parsianotp/widgets/custom_text_field.dart';
+import 'package:contactapp/models/contact.dart';
+import 'package:contactapp/pages/contact_details_page/contact_detail_provider.dart';
+import 'package:contactapp/utils/ui_utils.dart';
+import 'package:contactapp/widgets/custom_match_parent_button.dart';
+import 'package:contactapp/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class ContactDetailPage extends StatelessWidget {

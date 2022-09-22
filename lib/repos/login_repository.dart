@@ -1,6 +1,6 @@
-import 'package:parsianotp/data_source/local/local_data_source.dart';
-import 'package:parsianotp/injection_container.dart';
-import 'package:parsianotp/repos/base_repositoy.dart';
+import 'package:contactapp/data_source/local/local_data_source.dart';
+import 'package:contactapp/injection_container.dart';
+import 'package:contactapp/repos/base_repositoy.dart';
 
 class LoginRepository implements BaseRepository {
   LocalDataSource localDataSource = sl<LocalDataSource>();

@@ -1,10 +1,10 @@
 import 'dart:collection';
 
-import 'package:parsianotp/utils/base_provider.dart';
-import 'package:parsianotp/injection_container.dart';
-import 'package:parsianotp/models/contact.dart';
-import 'package:parsianotp/models/get_contacts_response.dart';
-import 'package:parsianotp/repos/contacts_repository.dart';
+import 'package:contactapp/utils/base_provider.dart';
+import 'package:contactapp/injection_container.dart';
+import 'package:contactapp/models/contact.dart';
+import 'package:contactapp/models/get_contacts_response.dart';
+import 'package:contactapp/repos/contacts_repository.dart';
 
 class ContactListProvider extends BaseProvider {
   List<Contact> _contacts = [];

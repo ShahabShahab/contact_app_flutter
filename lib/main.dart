@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:parsianotp/data_source/local/db_module.dart';
-import 'package:parsianotp/pages/splash/splash_page.dart';
-import 'package:parsianotp/pages/splash/splash_provider.dart';
+import 'package:contactapp/data_source/local/db_module.dart';
+import 'package:contactapp/pages/splash/splash_page.dart';
+import 'package:contactapp/pages/splash/splash_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'injection_container.dart' as di;

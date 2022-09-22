@@ -1,6 +1,6 @@
-import 'package:parsianotp/data_source/local/local_data_source.dart';
-import 'package:parsianotp/injection_container.dart';
-import 'package:parsianotp/utils/base_provider.dart';
+import 'package:contactapp/data_source/local/local_data_source.dart';
+import 'package:contactapp/injection_container.dart';
+import 'package:contactapp/utils/base_provider.dart';
 
 class SplashProvider extends BaseProvider{
 

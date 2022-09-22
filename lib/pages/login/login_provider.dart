@@ -1,7 +1,7 @@
-import 'package:parsianotp/injection_container.dart';
-import 'package:parsianotp/repos/login_repository.dart';
-import 'package:parsianotp/utils/base_provider.dart';
-import 'package:parsianotp/utils/validation_controller.dart';
+import 'package:contactapp/injection_container.dart';
+import 'package:contactapp/repos/login_repository.dart';
+import 'package:contactapp/utils/base_provider.dart';
+import 'package:contactapp/utils/validation_controller.dart';
 
 class LoginProvider extends BaseProvider {
    String? userNameValidationError;

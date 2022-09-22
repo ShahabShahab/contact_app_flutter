@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:parsianotp/constants/hive_constants.dart';
-import 'package:parsianotp/data_source/data_source.dart';
+import 'package:contactapp/constants/hive_constants.dart';
+import 'package:contactapp/data_source/data_source.dart';
 
 class LocalDataSource implements DataSource {
   late Box<bool> loginBox;

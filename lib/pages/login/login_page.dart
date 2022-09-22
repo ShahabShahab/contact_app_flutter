@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:parsianotp/pages/contact_list/contact_list_page.dart';
-import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
-import 'package:parsianotp/pages/login/login_provider.dart';
-import 'package:parsianotp/utils/ui_utils.dart';
-import 'package:parsianotp/widgets/custom_match_parent_button.dart';
-import 'package:parsianotp/widgets/custom_text_field.dart';
+import 'package:contactapp/pages/contact_list/contact_list_page.dart';
+import 'package:contactapp/pages/contact_list/contact_list_provider.dart';
+import 'package:contactapp/pages/login/login_provider.dart';
+import 'package:contactapp/utils/ui_utils.dart';
+import 'package:contactapp/widgets/custom_match_parent_button.dart';
+import 'package:contactapp/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {

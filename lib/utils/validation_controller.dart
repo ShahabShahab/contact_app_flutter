@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:parsianotp/utils/utils.dart';
+import 'package:contactapp/utils/utils.dart';
 
 typedef ValidationCallback = Function(String? errorValidateMsg);
 

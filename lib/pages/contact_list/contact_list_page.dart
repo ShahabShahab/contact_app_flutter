@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:parsianotp/models/contact.dart';
-import 'package:parsianotp/pages/contact_details_page/contact_detail_page.dart';
-import 'package:parsianotp/pages/contact_details_page/contact_detail_provider.dart';
-import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
-import 'package:parsianotp/utils/ui_utils.dart';
-import 'package:parsianotp/widgets/contact_row.dart';
+import 'package:contactapp/models/contact.dart';
+import 'package:contactapp/pages/contact_details_page/contact_detail_page.dart';
+import 'package:contactapp/pages/contact_details_page/contact_detail_provider.dart';
+import 'package:contactapp/pages/contact_list/contact_list_provider.dart';
+import 'package:contactapp/utils/ui_utils.dart';
+import 'package:contactapp/widgets/contact_row.dart';
 import 'package:provider/provider.dart';
 
 class ContactListPage extends StatelessWidget {

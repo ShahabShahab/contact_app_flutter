@@ -1,4 +1,4 @@
-package com.parsian.parsianotp
+package com.parsian.contactapp
 
 import io.flutter.embedding.android.FlutterActivity
 

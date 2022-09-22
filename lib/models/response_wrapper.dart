@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:parsianotp/models/response_error_wrapper.dart';
+import 'package:contactapp/models/response_error_wrapper.dart';
 
 class ResponseWrapper<T> {
   final bool ok;

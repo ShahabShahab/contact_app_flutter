@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:parsianotp/data_source/remote/rest_client.dart';
-import 'package:parsianotp/injection_container.dart';
-import 'package:parsianotp/models/contact.dart';
-import 'package:parsianotp/models/get_contacts_response.dart';
-import 'package:parsianotp/models/response_wrapper.dart';
-import 'package:parsianotp/repos/base_repositoy.dart';
+import 'package:contactapp/data_source/remote/rest_client.dart';
+import 'package:contactapp/injection_container.dart';
+import 'package:contactapp/models/contact.dart';
+import 'package:contactapp/models/get_contacts_response.dart';
+import 'package:contactapp/models/response_wrapper.dart';
+import 'package:contactapp/repos/base_repositoy.dart';
 
 class ContactsRepository implements BaseRepository {
   RestClient restClient = sl<RestClient>();

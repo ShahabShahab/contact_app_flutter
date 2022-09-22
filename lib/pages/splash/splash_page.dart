@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:parsianotp/pages/contact_list/contact_list_page.dart';
-import 'package:parsianotp/pages/contact_list/contact_list_provider.dart';
-import 'package:parsianotp/pages/login/login_page.dart';
-import 'package:parsianotp/pages/login/login_provider.dart';
-import 'package:parsianotp/pages/splash/splash_provider.dart';
+import 'package:contactapp/pages/contact_list/contact_list_page.dart';
+import 'package:contactapp/pages/contact_list/contact_list_provider.dart';
+import 'package:contactapp/pages/login/login_page.dart';
+import 'package:contactapp/pages/login/login_provider.dart';
+import 'package:contactapp/pages/splash/splash_provider.dart';
 import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {

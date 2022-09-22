@@ -1,8 +1,8 @@
-import 'package:parsianotp/utils/base_provider.dart';
-import 'package:parsianotp/injection_container.dart';
-import 'package:parsianotp/models/contact.dart';
-import 'package:parsianotp/utils/validation_controller.dart';
-import 'package:parsianotp/repos/contacts_repository.dart';
+import 'package:contactapp/utils/base_provider.dart';
+import 'package:contactapp/injection_container.dart';
+import 'package:contactapp/models/contact.dart';
+import 'package:contactapp/utils/validation_controller.dart';
+import 'package:contactapp/repos/contacts_repository.dart';
 
 class ContactDetailProvider extends BaseProvider {
   String? firstNameValidationError = "";
