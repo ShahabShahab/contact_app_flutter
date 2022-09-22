@@ -21,8 +21,8 @@ class ContactRow extends StatelessWidget {
           Container(
             width: 60,
             height: 60,
-            child: _buildContactPicture(context),
             decoration: const BoxDecoration(shape: BoxShape.circle),
+            child: _buildContactPicture(context),
           ),
           Expanded(
             child: Column(
@@ -43,16 +43,10 @@ class ContactRow extends StatelessWidget {
   }
 
   Widget _buildContactPicture(BuildContext context) {
-    // try{
-    //   return SvgPicture.network(this.picture);
-    // } catch(e){
-    //   return SvgPicture.defaultPlaceholderBuilder(context);
-    // }
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: const BoxDecoration(shape: BoxShape.circle,
-      color: Colors.blueGrey),
-    );
+    try {
+      return Image.network(picture);
+    } catch (e) {
+      return Image.asset("avatar.png");
+    }
   }
 }

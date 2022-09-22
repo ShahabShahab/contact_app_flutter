@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CustomMatchParentButton extends StatelessWidget {
@@ -6,7 +5,7 @@ class CustomMatchParentButton extends StatelessWidget {
       {Key? key, required this.onPressed, this.title = "Continue"})
       : super(key: key);
 
-  final Function onPressed;
+  final VoidCallback onPressed;
   final String title;
 
   @override
@@ -15,7 +14,9 @@ class CustomMatchParentButton extends StatelessWidget {
       width: double.maxFinite,
       height: 60,
       child: ElevatedButton(
-        onPressed: () => onPressed,
+        onPressed: () {
+          onPressed();
+        },
         child: Text(title),
       ),
     );

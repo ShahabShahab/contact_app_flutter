@@ -27,7 +27,7 @@ class ContactDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of<ContactDetailProvider>(context);
+    provider = Provider.of<ContactDetailProvider>(context, listen: false);
     if (provider.isLoading) {
       return buildLoading();
     } else {
@@ -52,7 +52,7 @@ class ContactDetailPage extends StatelessWidget {
                 controller: lastNameController,
               ),
               CustomTextField(
-                label: "Phone Number",
+                label: "Phone Number (1234567890)",
                 error: provider.phoneNumberValidationError,
                 onChanged: (value) {
                   provider.checkPhoneNumberValidationError(value);
@@ -96,9 +96,9 @@ class ContactDetailPage extends StatelessWidget {
 
   Widget _buildDeleteIcon(BuildContext context) {
     return Visibility(
-      visible: this.contact != null,
+      visible: contact != null,
       child: GestureDetector(
-        child: Container(
+        child: const SizedBox(
           width: 50,
           child: Icon(Icons.delete),
         ),

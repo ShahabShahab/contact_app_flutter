@@ -4,8 +4,8 @@ import 'package:parsianotp/utils/base_provider.dart';
 import 'package:parsianotp/utils/validation_controller.dart';
 
 class LoginProvider extends BaseProvider {
-  late String userNameValidationError;
-  late String passwordValidationError;
+   String? userNameValidationError;
+   String? passwordValidationError;
   final ValidationController _controller = ValidationController();
   LoginRepository repository = sl<LoginRepository>();
 
