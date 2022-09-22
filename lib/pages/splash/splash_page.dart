@@ -30,7 +30,7 @@ class SplashPage extends StatelessWidget {
   }
 
   Future hasUserAlreadyLoggedIn(BuildContext context) async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     bool hasUserAlreadyLoggedIn = await provider.hasUserAlreadyLoggedIn();
     if (hasUserAlreadyLoggedIn) {
       Navigator.pushReplacement(

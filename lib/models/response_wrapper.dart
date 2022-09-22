@@ -10,11 +10,11 @@ class ResponseWrapper<T> {
 
   factory ResponseWrapper.fromDioError({required DioError error}) {
     switch (error.type) {
-      case DioErrorType.RESPONSE:
+      case DioErrorType.response:
         return ResponseWrapper.fromDioErrorResponse(error);
-      case DioErrorType.CONNECT_TIMEOUT:
+      case DioErrorType.connectTimeout:
         return ResponseWrapper.fromDioErrorConnectionTimeout();
-      case DioErrorType.DEFAULT:
+      case DioErrorType.other:
         return ResponseWrapper.fromError(error, null);
       default:
         return ResponseWrapper.fromDioErrorResponse(error);
@@ -45,14 +45,14 @@ class ResponseWrapper<T> {
   factory ResponseWrapper.fromDioErrorResponse(DioError error) {
     ResponseWrapper<T> baseModel;
     try {
-      var emptyDescError = ResponseErrorWrapper.fromJson(error.response.data);
+      var emptyDescError = ResponseErrorWrapper.fromJson(error.response!.data);
       if (emptyDescError.message == null) {
         baseModel = ResponseWrapper<T>(
             ok: false, error: ResponseErrorWrapper(message: "Nothing to say!"));
       } else {
         baseModel = ResponseWrapper<T>(
             ok: false,
-            error: ResponseErrorWrapper.fromJson(error.response.data));
+            error: ResponseErrorWrapper.fromJson(error.response!.data));
       }
     } catch (e) {
       baseModel = ResponseWrapper<T>(

@@ -37,7 +37,7 @@ class ContactsRepository implements BaseRepository {
       {bool edit = false}) async {
     try {
       if (edit) {
-        await restClient.editContact(contact.id);
+        await restClient.editContact(contact.id!);
       } else {
         await restClient.addContact(contact);
       }

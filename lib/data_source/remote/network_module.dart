@@ -21,10 +21,11 @@ class NetworkModule {
         requestBody: true,
         requestHeader: true,
       ))
-      ..interceptors
-          .add(InterceptorsWrapper(onRequest: (Options options) async {
+      ..interceptors.add(InterceptorsWrapper(onRequest:
+          (RequestOptions options, RequestInterceptorHandler handler) async {
         options.headers.putIfAbsent(
             'x-endpoint-key', () => "38444aae02c84851969f93e5d0e6eb37");
+        return handler.next(options);
       }));
   }
 }

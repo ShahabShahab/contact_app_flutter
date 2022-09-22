@@ -14,6 +14,6 @@ class LocalDataSource implements DataSource {
   }
 
   Future<bool> getUserAlreadyLoggedIn() async {
-    return loginBox.get(HAS_USER_ALREADY_LOGGED_IN, defaultValue: false);
+    return loginBox.get(HAS_USER_ALREADY_LOGGED_IN, defaultValue: false)!;
   }
 }

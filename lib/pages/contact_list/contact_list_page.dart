@@ -44,12 +44,12 @@ class ContactListPage extends StatelessWidget {
 
   Widget _buildContactList(List<Contact> contacts) {
     if (_contactsListIsEmpty(contacts)) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text("Not Contacts found"),
         ),
       );
-    } else
+    } else {
       return Padding(
         padding: const EdgeInsets.all(15.0),
         child: ListView.builder(
@@ -69,6 +69,7 @@ class ContactListPage extends StatelessWidget {
           itemCount: contacts.length,
         ),
       );
+    }
   }
 
   ContactRow _buildContactRow(List<Contact> contacts, int index) {
@@ -90,19 +91,20 @@ class ContactListPage extends StatelessWidget {
   bool _contactsListIsEmpty(List<Contact> contacts) => contacts.length == 0;
 
   _openContactDetailPage(BuildContext context, {Contact? contact}) async {
-    await Navigator.push(
+    Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
                   create: (context) => ContactDetailProvider(),
                   child: ContactDetailPage(contact: contact),
-                )));
-    await Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ChangeNotifierProvider(
-              create: (context) => ContactListProvider(),
-              child: ContactListPage(),
-            )));
+                ))).then((value) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                    create: (context) => ContactListProvider(),
+                    child: ContactListPage(),
+                  )));
+    });
   }
 }
